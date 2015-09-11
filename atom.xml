@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://jeasonwong.github.io/"/>
-  <updated>2015-09-10T02:46:03.000Z</updated>
+  <updated>2015-09-11T12:47:09.000Z</updated>
   <id>http://jeasonwong.github.io/</id>
   
   <author>
@@ -15,23 +15,106 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://jeasonwong.github.io/2015/09/10/hello-world/"/>
-    <id>http://jeasonwong.github.io/2015/09/10/hello-world/</id>
-    <published>2015-09-10T02:46:03.000Z</published>
-    <updated>2015-09-10T02:46:03.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+    <title><![CDATA[解析特殊结构的JSON]]></title>
+    <link href="http://jeasonwong.github.io/2015/09/11/%E8%A7%A3%E6%9E%90%E7%89%B9%E6%AE%8A%E7%BB%93%E6%9E%84%E7%9A%84JSON/"/>
+    <id>http://jeasonwong.github.io/2015/09/11/解析特殊结构的JSON/</id>
+    <published>2015-09-11T12:47:09.000Z</published>
+    <updated>2015-09-11T12:47:09.000Z</updated>
+    <content type="html"><![CDATA[<p>一般来说JSON的Key是已知的，如下所示：</p>
+<pre><code>{
+    "<span class="attribute">results</span>": <span class="value">[
+           {
+            "<span class="attribute">id</span>": <span class="value"><span class="number">1</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"wangyuwei"</span></span>,
+            "<span class="attribute">sexuality</span>": <span class="value"><span class="string">"male"</span>
+        </span>},
+        {
+            "<span class="attribute">id</span>": <span class="value"><span class="number">2</span></span>,
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"JeasonWong"</span></span>,
+            "<span class="attribute">sexuality</span>": <span class="value"><span class="string">"female"</span>
+        </span>}
+    ]
+</span>}
+</code></pre><p>这样的JSON太容易解析了，但是有性能上的缺点，比如”id”,”name”,”sexuality”这些Key一直重复出现，一定程度上成为了冗余数据，那么问题来了，如何解决呢？参考以下JSON格式。</p>
+<pre><code>{
+    data: {
+        snapshot: {
+            fields: [
+                <span class="string">"open_px"</span>,
+                <span class="string">"high_px"</span>,
+                <span class="string">"low_px"</span>
+            ],
+            <span class="number">600570.</span>SS: [
+                <span class="number">47.08</span>,
+                <span class="number">48.38</span>,
+                <span class="number">45.88</span>
+            ],
+            <span class="number">000001.</span>SZ: [
+                <span class="number">11.02</span>,
+                <span class="number">11.12</span>,
+                <span class="number">10.88</span>
+            ]
+        }
+    }
+}
+</code></pre><p>这种JSON格式并不是很常见，但是我认为性能确实很强悍的。没有多余的Key，除了”fields”外，其余的Key都不是事先知道的，而”fields”里的Value确是与”fields”同级Key的Value一一对应，成为这些Value的Key。多么好的一个想法！</p>
+<p>那么问题来了，对于这种未知Key的JSON数组我们该如何下手呢？</p>
+<p>虽然不知道Key，但我们可以使用Iterator遍历一遍就行了。</p>
+<pre><code><span class="keyword">JSONObject</span> jsonObj = <span class="keyword">new</span> <span class="keyword">JSONObject</span>(json).getJSONObject(<span class="string">"data"</span>).getJSONObject(<span class="string">"snapshot"</span>);
+Iterator keyIter = jsonObj.keys();
+</code></pre><p>这样一来，所有的Key都拿到了，但这个时候我们只拿到了最外层的Key，即”fields”,”600570.SS”,”000001.SZ”，而”fileds”里的Value还没取出，这些Value即将作为”600570.SS”,”000001.SZ”中Value的Key了（前面已经说了，又啰嗦一遍:)）</p>
+<pre><code>List <span class="built_in">list</span> = <span class="keyword">new</span> ArrayList();
+JSONArray fields = jsonObj.getJSONArray(<span class="string">"fields"</span>);
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; fields.length(); i++) {
+    <span class="built_in">list</span>.add(i, fields.getString(i));
+}
+</code></pre><p>现在”fields”中的Value全都取出来放到了list里。接着就是遍历刚才的keyIter了。</p>
+<pre><code><span class="keyword">while</span> (keyIter.hasNext()) {
+    <span class="keyword">String</span> keys = (<span class="keyword">String</span>) keyIter.next();
+    <span class="keyword">JSONArray</span> jsonArray = jsonObj.getJSONArray(keys);
+    Map <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>();
+    <span class="keyword">if</span> (keys.equals(<span class="string">"fields"</span>)) {
+        <span class="keyword">continue</span>;
+    } <span class="keyword">else</span> {
+        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; jsonArray.length(); i++) {
+            <span class="built_in">map</span>.put(list.<span class="built_in">get</span>(i), jsonArray.<span class="built_in">get</span>(i));
+        }
+        HSStockEntity hsStockEntity = <span class="keyword">new</span> HSStockEntity();
+        hsStockEntity.setSymbol(keys);
+        hsStockEntity.setOpen_px(Double.parseDouble(<span class="built_in">map</span>.<span class="built_in">get</span>(<span class="string">"open_px"</span>).toString()));
+        hsStockEntity.setHigh_px(Double.parseDouble(<span class="built_in">map</span>.<span class="built_in">get</span>(<span class="string">"high_px"</span>).toString()));
+        hsStockEntity.setLow_px(Double.parseDouble(<span class="built_in">map</span>.<span class="built_in">get</span>(<span class="string">"low_px"</span>).toString()));
+        listEntity.<span class="built_in">add</span>(hsStockEntity);
+    }
+}
+</code></pre><p>从以上代码可以看到，我按照keyIter的顺序拿到”600570.SS”,”000001.SZ”中的Value，然后把他们放到了map里，map的Key是”fields”的Value，而map的Value则是”600570.SS”或”000001.SZ”对应的Value。</p>
+<p>HSStockEntity我的一个Model，这样最后能把所有的hsStockEntity都放在listEntity的集合中了。</p>
+<blockquote>
+<p>需要特别注意的一点是keyIter取到的Key并一定与你看到的顺序是一样的，也就是”fields”,”600570.SS”,”000001.SZ”三个的顺序是不一定的，那么假如你的JSON数据源必须要按照一定的顺序显示，那你就得需要自己写一下Comparator了。比如我这里对high_px进行降序排序，如果相等时根据symbol再排。</p>
+</blockquote>
+<pre><code>System.setProperty(<span class="string">"java.util.Arrays.useLegacyMergeSort"</span>, <span class="string">"true"</span>);
+Collections.sort(listEntity, <span class="keyword">new</span> Comparator&lt;HSStockEntity&gt;() {
+    @<span class="function">Override
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(HSStockEntity entity, HSStockEntity t1)</span> </span>{
+        <span class="keyword">if</span> ((<span class="keyword">float</span>) entity.getHigh_px() - (<span class="keyword">float</span>) t1.getHigh_px() ==<span class="number">0</span>) {
+            <span class="keyword">return</span> entity.getSymbol().compareTo(t1.getSymbol());
+           } <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="keyword">float</span>) entity.getHigh_px() - (<span class="keyword">float</span>) t1.getHigh_px() &gt; <span class="number">0</span>) {;
+           <span class="keyword">if</span> (isRise) <span class="keyword">return</span> -<span class="number">1</span>;
+            <span class="keyword">return</span> <span class="number">1</span>;
+         } <span class="keyword">else</span> {
+              <span class="keyword">if</span> (isRise) <span class="keyword">return</span> <span class="number">1</span>;
+                  <span class="keyword">return</span> -<span class="number">1</span>;
+            }
+        }
+});
+</code></pre><p>这样以来，对这种特殊结构的JSON解析就完成了。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
+    <![CDATA[<p>一般来说JSON的Key是已知的，如下所示：</p>
+<pre><code>{
+    "<span class="attribute">results</span>": <span class="value">[
+           {
+            "<sp]]>
     </summary>
     
   </entry>
