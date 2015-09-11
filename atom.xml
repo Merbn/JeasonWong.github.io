@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://jeasonwong.github.io/"/>
-  <updated>2015-09-11T12:47:09.000Z</updated>
+  <updated>2015-09-11T12:51:54.000Z</updated>
   <id>http://jeasonwong.github.io/</id>
   
   <author>
@@ -18,8 +18,8 @@
     <title><![CDATA[解析特殊结构的JSON]]></title>
     <link href="http://jeasonwong.github.io/2015/09/11/%E8%A7%A3%E6%9E%90%E7%89%B9%E6%AE%8A%E7%BB%93%E6%9E%84%E7%9A%84JSON/"/>
     <id>http://jeasonwong.github.io/2015/09/11/解析特殊结构的JSON/</id>
-    <published>2015-09-11T12:47:09.000Z</published>
-    <updated>2015-09-11T12:47:09.000Z</updated>
+    <published>2015-09-11T12:51:54.000Z</published>
+    <updated>2015-09-11T12:51:54.000Z</updated>
     <content type="html"><![CDATA[<p>一般来说JSON的Key是已知的，如下所示：</p>
 <pre><code>{
     "<span class="attribute">results</span>": <span class="value">[
@@ -89,9 +89,7 @@ JSONArray fields = jsonObj.getJSONArray(<span class="string">"fields"</span>);
 }
 </code></pre><p>从以上代码可以看到，我按照keyIter的顺序拿到”600570.SS”,”000001.SZ”中的Value，然后把他们放到了map里，map的Key是”fields”的Value，而map的Value则是”600570.SS”或”000001.SZ”对应的Value。</p>
 <p>HSStockEntity我的一个Model，这样最后能把所有的hsStockEntity都放在listEntity的集合中了。</p>
-<blockquote>
 <p>需要特别注意的一点是keyIter取到的Key并一定与你看到的顺序是一样的，也就是”fields”,”600570.SS”,”000001.SZ”三个的顺序是不一定的，那么假如你的JSON数据源必须要按照一定的顺序显示，那你就得需要自己写一下Comparator了。比如我这里对high_px进行降序排序，如果相等时根据symbol再排。</p>
-</blockquote>
 <pre><code>System.setProperty(<span class="string">"java.util.Arrays.useLegacyMergeSort"</span>, <span class="string">"true"</span>);
 Collections.sort(listEntity, <span class="keyword">new</span> Comparator&lt;HSStockEntity&gt;() {
     @<span class="function">Override
