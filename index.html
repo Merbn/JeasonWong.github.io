@@ -126,7 +126,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/10/app从一开始就不容忽视的业务/">app从一开始就不容忽视的业务</a>
+      <a class="article-title" href="/2016/05/10/app从一开始就不容忽视的业务/">app从一开始就不容忽视的事情</a>
     </h1>
   
 
@@ -139,7 +139,11 @@
 </li>
 <li><p>对已发推送的回撤操作</p>
 </li>
+<li><p>增加CheckStyle检测代码规范</p>
+</li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &#39;checkstyle&#39;&#10;&#10;    checkstyle &#123;&#10;        toolVersion &#39;6.1.1&#39;&#10;        showViolations true&#10;    &#125;&#10;&#10;    task checkstyle(type: Checkstyle) &#123;&#10;        source &#39;src&#39;&#10;        include &#39;**/*.java&#39;&#10;        exclude &#39;**/gen/**&#39;&#10;        ignoreFailures false&#10;        configFile new File(rootDir, &#34;checkstyle.xml&#34;)&#10;        // empty classpath&#10;        classpath = files()&#10;    &#125;</span><br></pre></td></tr></table></figure>
+<p>华为CheckStyle =&gt; <a href="https://gist.github.com/ownwell/c32878440216f1866842" target="_blank" rel="external">https://gist.github.com/ownwell/c32878440216f1866842</a></p>
 <p>有想到再继续补充</p>
 
       
@@ -359,7 +363,7 @@ Collections.sort(listEntity, <span class="keyword">new</span> Comparator&lt;HSSt
           </li>
         
           <li>
-            <a href="/2016/05/10/app从一开始就不容忽视的业务/">app从一开始就不容忽视的业务</a>
+            <a href="/2016/05/10/app从一开始就不容忽视的业务/">app从一开始就不容忽视的事情</a>
           </li>
         
           <li>
