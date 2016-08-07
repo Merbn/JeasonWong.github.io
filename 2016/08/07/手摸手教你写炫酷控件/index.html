@@ -5,44 +5,44 @@
   
   <title>手摸手教你写炫酷控件 | WoooongYuwei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="话不多说，先上效果。
+  <meta name="description" content="项目地址：https://github.com/JeasonWong/JikeGallery
+话不多说，先上效果。
 
 这个效果是在即刻app上看到，觉得很不错，遂仿之。
 先说下我的实现思路（以上方的图片滚动为例，下方的文字实现效果类似）：
 
 自定义ViewGroup
 装载两个ImageView和一个阴影View
-通过一定规律交替控制两个ImageView和它们的marginTop，在onLayout()中实现
-marginTop的具体值由属性动画控制，不断调用requestLayout()">
+通过一定规律交替控制两个ImageView和它们的marginTop，在onLayou">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手摸手教你写炫酷控件">
 <meta property="og:url" content="http://jeasonwong.github.io/2016/08/07/手摸手教你写炫酷控件/index.html">
 <meta property="og:site_name" content="WoooongYuwei">
-<meta property="og:description" content="话不多说，先上效果。
+<meta property="og:description" content="项目地址：https://github.com/JeasonWong/JikeGallery
+话不多说，先上效果。
 
 这个效果是在即刻app上看到，觉得很不错，遂仿之。
 先说下我的实现思路（以上方的图片滚动为例，下方的文字实现效果类似）：
 
 自定义ViewGroup
 装载两个ImageView和一个阴影View
-通过一定规律交替控制两个ImageView和它们的marginTop，在onLayout()中实现
-marginTop的具体值由属性动画控制，不断调用requestLayout()">
+通过一定规律交替控制两个ImageView和它们的marginTop，在onLayou">
 <meta property="og:image" content="http://i4.piimg.com/1070/a43444182f677b1d.gif">
 <meta property="og:image" content="http://i1.piimg.com/1070/275930be6e9efb87.jpg">
 <meta property="og:image" content="http://i4.piimg.com/1070/77799de59b06330d.jpg">
 <meta property="og:image" content="http://i1.piimg.com/1070/f101a594f7ce04b6.png">
-<meta property="og:updated_time" content="2016-08-07T04:57:53.000Z">
+<meta property="og:updated_time" content="2016-08-07T05:12:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手摸手教你写炫酷控件">
-<meta name="twitter:description" content="话不多说，先上效果。
+<meta name="twitter:description" content="项目地址：https://github.com/JeasonWong/JikeGallery
+话不多说，先上效果。
 
 这个效果是在即刻app上看到，觉得很不错，遂仿之。
 先说下我的实现思路（以上方的图片滚动为例，下方的文字实现效果类似）：
 
 自定义ViewGroup
 装载两个ImageView和一个阴影View
-通过一定规律交替控制两个ImageView和它们的marginTop，在onLayout()中实现
-marginTop的具体值由属性动画控制，不断调用requestLayout()">
+通过一定规律交替控制两个ImageView和它们的marginTop，在onLayou">
   
     <link rel="alternative" href="/atom.xml" title="WoooongYuwei" type="application/atom+xml">
   
@@ -91,7 +91,7 @@ marginTop的具体值由属性动画控制，不断调用requestLayout()">
         <section id="main"><article id="post-手摸手教你写炫酷控件" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/08/07/手摸手教你写炫酷控件/" class="article-date">
-  <time datetime="2016-08-07T04:57:53.000Z" itemprop="datePublished">2016-08-07</time>
+  <time datetime="2016-08-07T05:12:43.000Z" itemprop="datePublished">2016-08-07</time>
 </a>
     
   </div>
@@ -110,9 +110,10 @@ marginTop的具体值由属性动画控制，不断调用requestLayout()">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>话不多说，先上效果。</p>
+        <p>项目地址：<a href="https://github.com/JeasonWong/JikeGallery" target="_blank" rel="external">https://github.com/JeasonWong/JikeGallery</a></p>
+<p>话不多说，先上效果。</p>
 <p><img src="http://i4.piimg.com/1070/a43444182f677b1d.gif" alt="图二福利"></p>
-<p>这个效果是在即刻app上看到，觉得很不错，遂仿之。</p>
+<p>这个效果是在<strong>即刻app</strong>上看到，觉得很不错，遂仿之。</p>
 <p>先说下我的实现思路（以上方的图片滚动为例，下方的文字实现效果类似）：</p>
 <ul>
 <li>自定义ViewGroup</li>
@@ -125,7 +126,7 @@ marginTop的具体值由属性动画控制，不断调用requestLayout()">
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//滑动状态</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STATUS_SMOOTHING = <span class="number">0</span>;</span><br><span class="line"><span class="comment">//停止状态</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STATUS_STOP = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ViewGroup宽高</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> mWidth, mHeight;</span><br><span class="line"><span class="comment">//变化的marginTop值</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> mSmoothMarginTop;</span><br><span class="line"><span class="comment">//默认状态</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> mStatus = STATUS_STOP;</span><br><span class="line"><span class="comment">//滚动时间间隔</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> mDuration = <span class="number">500</span>;</span><br><span class="line"><span class="comment">//重复次数</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> mRepeatTimes = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">    mWidth = w;</span><br><span class="line">    mHeight = h;</span><br><span class="line">    mSmoothMarginTop = -h;</span><br><span class="line">    initView();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 是否是奇数圈</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@return</span> 结果</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isOddCircle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mRepeatTimes % <span class="number">2</span> == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>先了解下成员变量，其中最重要的一个就是mSmoothMarginTop，相信很多人都知道一个View的marginTop可以设为负数，这个负数可以给我们带来太多的方便。</p>
 <p><img src="http://i1.piimg.com/1070/275930be6e9efb87.jpg" alt="pic0"></p>
-<p>上图的图0就是我们展现在屏幕上的ImageView，图1则是屏幕外marginTop为-height的ImageView，这个一定要明白，接下来才好继续实现。</p>
+<p>上图的图0就是我们展现在屏幕上的ImageView，图1则是屏幕外marginTop为-height的ImageView，<strong>这个一定要明白，接下来才好继续实现</strong>。</p>
 <p>###<strong>二、装载两个ImageView和一个阴影View</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;String&gt; mImgList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">private</span> ImageView[] mImgs = <span class="keyword">new</span> ImageView[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">private</span> View mShadowView;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果没有内容，则不进行初始化操作</span></span><br><span class="line">    <span class="keyword">if</span> (mImgList.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    removeAllViews();</span><br><span class="line"></span><br><span class="line">    MarginLayoutParams params = <span class="keyword">new</span> MarginLayoutParams(mWidth, mHeight);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//两个ImageView加载前两张图</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mImgs.length; i++) &#123;</span><br><span class="line">        mImgs[i] = <span class="keyword">new</span> ImageView(getContext());</span><br><span class="line">        addViewInLayout(mImgs[i], -<span class="number">1</span>, params, <span class="keyword">true</span>);</span><br><span class="line">        Glide.with(getContext()).load(getImgPath(i)).centerCrop().into(mImgs[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建阴影View</span></span><br><span class="line">    mShadowView = <span class="keyword">new</span> View(getContext());</span><br><span class="line">    mShadowView.setBackgroundColor(Color.parseColor(<span class="string">"#60000000"</span>));</span><br><span class="line">    mShadowView.setAlpha(<span class="number">0</span>);</span><br><span class="line">    addViewInLayout(mShadowView, -<span class="number">1</span>, params, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 获取图片地址</span><br><span class="line"> * </span><br><span class="line"> * <span class="doctag">@param</span> position 位置</span><br><span class="line"> * <span class="doctag">@return</span>  图片地址</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getImgPath</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">    position = position % mImgList.size();</span><br><span class="line">    <span class="keyword">return</span> mImgList.get(position);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>关键点说明：</strong></p>
@@ -163,7 +164,7 @@ marginTop的具体值由属性动画控制，不断调用requestLayout()">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jeasonwong.github.io/2016/08/07/手摸手教你写炫酷控件/" data-id="cirk51vzl0001qu46s9glrzx1" class="article-share-link">Share</a>
+      <a data-url="http://jeasonwong.github.io/2016/08/07/手摸手教你写炫酷控件/" data-id="cirk5l9vz0001k446t7ici5wa" class="article-share-link">Share</a>
       
       
     </footer>
