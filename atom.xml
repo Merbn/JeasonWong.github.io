@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://jeasonwong.github.io/"/>
-  <updated>2016-08-20T08:10:40.000Z</updated>
+  <updated>2016-08-20T08:12:20.000Z</updated>
   <id>http://jeasonwong.github.io/</id>
   
   <author>
@@ -19,15 +19,13 @@
     <link href="http://jeasonwong.github.io/2016/08/20/about/"/>
     <id>http://jeasonwong.github.io/2016/08/20/about/</id>
     <published>2016-08-20T08:09:52.000Z</published>
-    <updated>2016-08-20T08:10:40.000Z</updated>
+    <updated>2016-08-20T08:12:20.000Z</updated>
     <content type="html"><![CDATA[<p>about</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>about</p>
 ]]>
     </summary>
-    
-      <category term="about" scheme="http://jeasonwong.github.io/categories/about/"/>
     
   </entry>
   
