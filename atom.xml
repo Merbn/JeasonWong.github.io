@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://jeasonwong.github.io/"/>
-  <updated>2016-08-20T06:38:27.000Z</updated>
+  <updated>2016-08-20T06:41:01.000Z</updated>
   <id>http://jeasonwong.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://jeasonwong.github.io/2016/08/20/%E6%89%8B%E6%91%B8%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8Scene%E5%AE%9E%E7%8E%B0%E7%82%AB%E9%85%B7%E7%9A%84%E6%B3%A8%E5%86%8C%E7%99%BB%E5%BD%95%E5%8A%A8%E7%94%BB/"/>
     <id>http://jeasonwong.github.io/2016/08/20/手摸手教你用Scene实现炫酷的注册登录动画/</id>
     <published>2016-08-20T05:48:08.000Z</published>
-    <updated>2016-08-20T06:38:27.000Z</updated>
+    <updated>2016-08-20T06:41:01.000Z</updated>
     <content type="html"><![CDATA[<p>项目地址：<a href="https://github.com/JeasonWong/SignUpTransition" target="_blank" rel="external">https://github.com/JeasonWong/SignUpTransition</a></p>
 <p>老规矩，先上效果。</p>
 <p><img src="https://raw.githubusercontent.com/jeasonwong/signuptransition/master/screenshots/scene.gif" alt="效果"></p>
@@ -30,7 +30,7 @@
 <li>注册-&gt;登录的动画</li>
 <li>背景上升顶部图标渐变</li>
 </ul>
-<p>此处插一下嘴~ 动画效果我是在materialup上看到的，实现后在设计师的效果后留言说我实现了他的效果，然后他也回应了下，我相信这样的结果也会是设计师和程序员感到最欣慰的结果。<br><img src="https://raw.githubusercontent.com/jeasonwong/signuptransition/master/screenshots/chat.gif" alt="chat"></p>
+<p>此处插一下嘴~ 动画效果我是在materialup上看到的，实现后在设计师的效果后留言说我实现了他的效果，然后他也回应了下，我相信这样的结果也会是设计师和程序员感到最欣慰的结果。<br><img src="https://raw.githubusercontent.com/jeasonwong/signuptransition/master/screenshots/chat.png" alt="chat"></p>
 <p>整个过度动画只要实现这些就好了，然后再说下我使用到的技术</p>
 <ul>
 <li>字符唯一、背景上升使用Scene</li>
