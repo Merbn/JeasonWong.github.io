@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://jeasonwong.github.io/"/>
-  <updated>2016-08-24T14:10:53.000Z</updated>
+  <updated>2016-08-24T14:13:40.000Z</updated>
   <id>http://jeasonwong.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://jeasonwong.github.io/2016/08/24/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0%E7%94%A8VideoView%E5%AE%9E%E7%8E%B0%E8%8B%B1%E8%AF%AD%E6%B5%81%E5%88%A9%E8%AF%B4%E7%82%AB%E9%85%B7%E5%BC%95%E5%AF%BC%E9%A1%B5/"/>
     <id>http://jeasonwong.github.io/2016/08/24/手摸手带你用VideoView实现英语流利说炫酷引导页/</id>
     <published>2016-08-24T12:37:14.000Z</published>
-    <updated>2016-08-24T14:10:53.000Z</updated>
+    <updated>2016-08-24T14:13:40.000Z</updated>
     <content type="html"><![CDATA[<p>项目地址：<a href="https://github.com/JeasonWong/LiulishuoPreview" target="_blank" rel="external">https://github.com/JeasonWong/LiulishuoPreview</a></p>
 <p>效果图：</p>
 <p><img src="https://raw.githubusercontent.com/jeasonwong/LiulishuoPreview/master/screenshots/liulishuo.gif" alt="Markdown"></p>
@@ -31,7 +31,7 @@
 <li>视频播放？（没错，就是它了）</li>
 </ul>
 <p>为了证实自己的思路，继续抱着崇拜的心态解压了apk，发现果然啊，有个18s的mp4文件，拿到这个后再想实现这个效果就太尼玛容易了。</p>
-<p><strong>ps:我觉得单独这样拿文件并开源是种不太好的行为，所以向现在在流利说的前同事稍微请示了下，心里踏实些~</strong></p>
+<p><strong>ps:我觉得单独这样拿文件并开源是种不太好的行为，所以向目前在流利说的前同事稍微请示了下，心里踏实些~</strong></p>
 <p>下面开始手摸手分析：</p>
 <ul>
 <li>18s的动画分成了三部分</li>
@@ -54,6 +54,7 @@
 <p>冲着这个标题就知道要重写VideoView的onMeasure()方法了。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> w = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    setMeasuredDimension(w, (<span class="keyword">int</span>) (w / <span class="number">0.56f</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>宽度保持全屏，高度用宽度/0.56，很多人会问，0.56哪来的？请看图：</p>
+<p><img src="https://raw.githubusercontent.com/jeasonwong/LiulishuoPreview/master/screenshots/size.png" alt="Markdown"></p>
 <p>mp4文件是1080*1920的，宽/长约等于0.56，很简单吧。</p>
 <p>以上就是实现英语流利说炫酷引导页的主要步骤，其实整个过程最难的一点就是这个mp4文件的制作，不得不给流利说的设计师们点个赞！大写的66666。</p>
 <blockquote>
