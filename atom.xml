@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://jeasonwong.github.io/"/>
-  <updated>2016-08-20T09:02:31.000Z</updated>
+  <updated>2016-08-24T14:10:53.000Z</updated>
   <id>http://jeasonwong.github.io/</id>
   
   <author>
@@ -13,6 +13,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[手摸手带你用VideoView实现英语流利说炫酷引导页]]></title>
+    <link href="http://jeasonwong.github.io/2016/08/24/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0%E7%94%A8VideoView%E5%AE%9E%E7%8E%B0%E8%8B%B1%E8%AF%AD%E6%B5%81%E5%88%A9%E8%AF%B4%E7%82%AB%E9%85%B7%E5%BC%95%E5%AF%BC%E9%A1%B5/"/>
+    <id>http://jeasonwong.github.io/2016/08/24/手摸手带你用VideoView实现英语流利说炫酷引导页/</id>
+    <published>2016-08-24T12:37:14.000Z</published>
+    <updated>2016-08-24T14:10:53.000Z</updated>
+    <content type="html"><![CDATA[<p>项目地址：<a href="https://github.com/JeasonWong/LiulishuoPreview" target="_blank" rel="external">https://github.com/JeasonWong/LiulishuoPreview</a></p>
+<p>效果图：</p>
+<p><img src="https://raw.githubusercontent.com/jeasonwong/LiulishuoPreview/master/screenshots/liulishuo.gif" alt="Markdown"></p>
+<p>一直听说英语流利说是个做的非常不错的app，于是乎抱着崇拜的心态下了一个瞅瞅，在打开app后就被引导页吸引了，继续抱着崇拜的心态去思考这是如何实现的。</p>
+<p><strong>刚开始的思路</strong></p>
+<ul>
+<li>属性动画？（可以实现，但是估计只为这个业务做这么大量的动画会吐血）</li>
+<li>帧动画？（设计师会吐血）</li>
+<li>视频播放？（没错，就是它了）</li>
+</ul>
+<p>为了证实自己的思路，继续抱着崇拜的心态解压了apk，发现果然啊，有个18s的mp4文件，拿到这个后再想实现这个效果就太尼玛容易了。</p>
+<p><strong>ps:我觉得单独这样拿文件并开源是种不太好的行为，所以向现在在流利说的前同事稍微请示了下，心里踏实些~</strong></p>
+<p>下面开始手摸手分析：</p>
+<ul>
+<li>18s的动画分成了三部分</li>
+<li>引导页也是三页，而且每一页都在循环对应的6s</li>
+<li>播放mp4可以用VideoView</li>
+<li>播放至指定位置可以用VideoView暴露的seekTo(int msec)</li>
+</ul>
+<p>所有问题迎刃而解，so easy啊。</p>
+<p>那么可以开始手摸手撸码了：</p>
+<p><strong>一、视频文件放入src/raw文件夹内</strong></p>
+<p>插句嘴，这里可以温习下常见面试题，src/raw与assets的区别？</p>
+<p>放入后读取相关文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 获取video文件的路径</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@return</span> 路径</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getVideoPath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"android.resource://"</span> + <span class="keyword">this</span>.getPackageName() + <span class="string">"/"</span> + R.raw.intro_video;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>二、VideoView准备播放</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mVideoView = (PreviewVideoView) findViewById(R.id.vv_preview);</span><br><span class="line">mVideoView.setVideoURI(Uri.parse(getVideoPath()));</span><br></pre></td></tr></table></figure>
+<p><strong>三、轮询每一页的6s</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Subscription mLoop;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 开启轮询</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startLoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> != mLoop) &#123;</span><br><span class="line">        mLoop.unsubscribe();</span><br><span class="line">    &#125;</span><br><span class="line">    mLoop = Observable.interval(<span class="number">0</span>, <span class="number">6</span> * <span class="number">1000</span>, TimeUnit.MILLISECONDS)</span><br><span class="line">            .subscribe(<span class="keyword">new</span> Action1&lt;Long&gt;() &#123;</span><br><span class="line">                <span class="annotation">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Long aLong)</span> </span>&#123;</span><br><span class="line">                    mVideoView.seekTo(mCurrentPage * <span class="number">6</span> * <span class="number">1000</span>);</span><br><span class="line">                    <span class="keyword">if</span> (!mVideoView.isPlaying()) &#123;</span><br><span class="line">                        mVideoView.start();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>关于何时startLoop我就不赘述了，一个是启动后，一个是ViewPager滑动后。</p>
+<p>看似好像完成了所有操作，其实不然，最后一步尤为重要！</p>
+<p><strong>四、确保VideoView全屏且尽量不拉伸</strong></p>
+<p>冲着这个标题就知道要重写VideoView的onMeasure()方法了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> w = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    setMeasuredDimension(w, (<span class="keyword">int</span>) (w / <span class="number">0.56f</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>宽度保持全屏，高度用宽度/0.56，很多人会问，0.56哪来的？请看图：</p>
+<p>mp4文件是1080*1920的，宽/长约等于0.56，很简单吧。</p>
+<p>以上就是实现英语流利说炫酷引导页的主要步骤，其实整个过程最难的一点就是这个mp4文件的制作，不得不给流利说的设计师们点个赞！大写的66666。</p>
+<blockquote>
+<p>如果有更好的思路，欢迎交流，开源本身就是大家互相喷喷，互相进步嘛，<br>对各种动画感兴趣的朋友欢迎加群479729938进行交流，<br>期待各种好看，好玩，实用的动画~</p>
+</blockquote>
+<p><img src="http://i1.piimg.com/1070/f101a594f7ce04b6.png" alt="Markdown"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>项目地址：<a href="https://github.com/JeasonWong/LiulishuoPreview" target="_blank" rel="external">https://github.com/JeasonWong/LiulishuoPrevi]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[手摸手教你用Scene实现炫酷的注册登录动画]]></title>
